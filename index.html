@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Amigo Invisible</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .nombre {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Enhorabuena!</h1>
+        <p>Tu amigo invisible es:</p>
+        <p class="nombre" id="amigoInvisible"></p>
+
+        <script>
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+            window.onload = function() {
+                const encodedName = getParameterByName('nombre');
+                const amigoInvisibleElement = document.getElementById('amigoInvisible');
+
+                if (encodedName) {
+                    try {
+                        const decodedName = atob(encodedName);
+                        amigoInvisibleElement.textContent = decodedName;
+                    } catch (error) {
+                        console.error('Error al decodificar el nombre:', error);
+                        amigoInvisibleElement.textContent = 'Error: Enlace no válido';
+                    }
+                } else {
+                    amigoInvisibleElement.textContent = 'Enlace no válido';
+                }
+            };
+        </script>
+    </div>
+</body>
+</html>
